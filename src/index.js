@@ -75,18 +75,19 @@ console.assert(JS.name === "Matt")
 // in the properties object. ABout 5 or 6 lines
 // -----------
 function where(list, properties) {
-return list.filter(function(v){
-  var itemPassed = true;
-  for (key in properties) {
-    if (properties.hasOwnProperty(key)) {
-      if (v[key] !== properties[key]) {
-        itemPassed = false;
+  return list.filter(function(v){
+    var itemPassed = true;
+    for (key in properties) {
+      if (properties.hasOwnProperty(key)) {
+        if (v[key] !== properties[key]) {
+          itemPassed = false;
+        };
       };
     };
-  };
-  return itemPassed;
-});
+    return itemPassed;
+  });
 }
+
 // tests
 // ---
 var plays = [
@@ -116,3 +117,24 @@ console.assert(sh8spr.length === 2)
 // Plays written in 1949, there are 2
 var midcentury = where(plays, {year: 1949})
 console.assert(midcentury.length === 2)
+
+var fruit = [
+  {color: 'green', type:'avocado'},
+  {color: 'green', type:'apple'},
+  {color: 'red', type:'apple'},
+  {color: 'multicolor', type:'mango'},
+  {color: 'yellow', type:'banana'},
+  {color: 'green', type:'banana'}
+]
+
+function bycolor(array, requestedColor){
+  return array.filter(function(currentItem){
+    console.log(currentItem.color);
+    return currentItem.color === requestedColor;
+  })
+}
+
+var greenfruits = bycolor(fruit, 'green')
+console.log(greenfruits);
+console.assert(greenfruits[2].type === 'banana')
+console.assert(greenfruits.length === 3)
